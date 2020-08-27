@@ -8,9 +8,17 @@ ext {
     def constraintLayoutVersion = "2.0.0-beta4"
     def navVersion = "2.3.0-alpha04"
 
+    def retrofitVersion  = '2.8.1'
+    def moshiVersion = '1.9.2'
+    def loggingLibVersion = "4.5.0"
+
     def jUnitVersion = "4.12"
     def androidJUnitVersion = "1.1.1"
     def espressoVersion = "3.2.0"
+
+    libraries = [
+            kotlinStdLib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+    ]
 
     androidLibraries = [
             "androidx.core:core-ktx:$ktxVersion",
@@ -27,6 +35,18 @@ ext {
             "androidx.navigation:navigation-fragment-ktx:$navVersion",
             "androidx.navigation:navigation-ui-ktx:$navVersion",
     ]
+
+    networkLibraries = [
+            moshi                 : "com.squareup.moshi:moshi:$moshiVersion",
+            retrofit              : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitMoshiConverter: "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
+            networkLogging        : "com.squareup.okhttp3:logging-interceptor:$loggingLibVersion"
+    ]
+
+    compilers = [
+            moshi                 : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
+    ]
+
 
     testLibraries = [
             "junit:junit:$jUnitVersion",

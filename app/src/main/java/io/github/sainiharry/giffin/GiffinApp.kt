@@ -1,6 +1,7 @@
 package io.github.sainiharry.giffin
 
 import android.app.Application
+import io.github.sainiharry.giffin.network.API_KEY_QUALIFIER
 import io.github.sainiharry.giffin.network.networkModule
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
@@ -13,11 +14,11 @@ class GiffinApp : Application() {
 
         startKoin {
             module {
-                single(named("api_key")) {
+                single(named(API_KEY_QUALIFIER)) {
                     BuildConfig.GIPHY_API_KEY
                 }
             }
-            
+
             modules(networkModule)
         }
     }

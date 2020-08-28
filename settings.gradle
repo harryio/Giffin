@@ -1,3 +1,4 @@
+include ':repository:common'
 include ':network'
 include ':app'
 rootProject.name = "Giffin"

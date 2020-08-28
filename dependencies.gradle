@@ -16,6 +16,8 @@ ext {
     def androidJUnitVersion = "1.1.1"
     def espressoVersion = "3.2.0"
 
+    def koinVersion = "2.1.6"
+
     libraries = [
             kotlinStdLib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
     ]
@@ -47,6 +49,10 @@ ext {
             moshi                 : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
     ]
 
+    diLibraries = [
+            koin                  : "org.koin:koin-core:$koinVersion",
+            koinAndroid           : "org.koin:koin-android:$koinVersion",
+    ]
 
     testLibraries = [
             "junit:junit:$jUnitVersion",

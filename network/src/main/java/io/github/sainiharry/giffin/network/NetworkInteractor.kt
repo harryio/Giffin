@@ -5,18 +5,20 @@ import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 private const val BASE_API_URL = "https://api.themoviedb.org"
 
-object NetworkInteractor {
-
-    private lateinit var apiKey: String
-
-    fun setup(apiKey: String) {
-        this.apiKey = apiKey
+val networkModule = module {
+    single() {
+        NetworkInteractor(get(named("api_key")))
     }
+}
+
+class NetworkInteractor internal constructor(private val apiKey: String) {
 
     val moshi by lazy {
         Moshi.Builder().build()

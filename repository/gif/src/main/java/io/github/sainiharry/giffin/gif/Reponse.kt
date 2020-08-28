@@ -3,9 +3,13 @@ package io.github.sainiharry.giffin.gif
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import io.github.sainiharry.giffin.common.Gif
+import io.github.sainiharry.giffin.commonrepository.PaginationResponse
 
 @JsonClass(generateAdapter = true)
-internal data class GifResponseWrapper(val data: List<GifResponse?>?)
+internal data class GifResponseWrapper(
+    val data: List<GifResponse?>?,
+    val pagination: PaginationResponse?
+)
 
 @JsonClass(generateAdapter = true)
 internal data class GifResponse(

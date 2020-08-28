@@ -22,9 +22,12 @@ ext {
 
     def glideVersion = "4.11.0"
 
+    def pagingVersion = "3.0.0-alpha05"
+
     libraries = [
             kotlinStdLib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
             glide                 : "com.github.bumptech.glide:glide:$glideVersion",
+            paging                : "androidx.paging:paging-runtime:$pagingVersion"
     ]
 
     androidLibraries = [

@@ -38,6 +38,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     api libraries.kotlinStdLib
+    api libraries.paging
     api coroutines.core
 
     api networkLibraries.retrofit

@@ -1,5 +1,5 @@
+include ':repository:commonrepository'
 include ':repository:gif'
-include ':repository:common'
 include ':network'
 include ':app'
 rootProject.name = "Giffin"

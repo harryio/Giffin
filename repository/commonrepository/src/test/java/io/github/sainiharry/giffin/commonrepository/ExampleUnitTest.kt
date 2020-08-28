@@ -1,4 +1,4 @@
-package io.github.sainiharry.giffin.repository.common
+package io.github.sainiharry.giffin.commonrepository
 
 import org.junit.Test
 

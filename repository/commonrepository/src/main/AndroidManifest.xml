@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.sainiharry.giffin.repository.common">
+    package="io.github.sainiharry.giffin.commonrepository">
 
     /
 </manifest>

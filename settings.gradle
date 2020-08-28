@@ -1,3 +1,4 @@
+include ':repository:gif'
 include ':repository:common'
 include ':network'
 include ':app'

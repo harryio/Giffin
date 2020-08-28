@@ -43,6 +43,8 @@ dependencies {
     implementation project(':feature:commonfeature')
     implementation project(':repository:gif')
 
+    kapt compilers.room
+
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries
 }

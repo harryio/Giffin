@@ -42,6 +42,7 @@ dependencies {
 
     api networkLibraries.retrofit
     api networkLibraries.moshi
+    api room
 
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries

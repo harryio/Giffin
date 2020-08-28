@@ -16,31 +16,32 @@ private const val BASE_API_URL = "https://api.giphy.com"
 
 val networkModule = module {
     single {
-        NetworkInteractor(get(named(API_KEY_QUALIFIER)))
+        NetworkInteractor(get(named(API_KEY_QUALIFIER))).retrofit
     }
 }
 
-class NetworkInteractor internal constructor(private val apiKey: String) {
+internal class NetworkInteractor internal constructor(private val apiKey: String) {
 
-    val moshi by lazy {
+    private val moshi by lazy {
         Moshi.Builder().build()
     }
 
-    private val okHttpClient = lazy {
+    private val okHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(ApiKeyInterceptor(apiKey))
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
             .build()
     }
 
-    val retrofit: Retrofit by lazy {
+    internal val retrofit: Retrofit by lazy {
         Retrofit.Builder().baseUrl(BASE_API_URL)
-            .delegatingCallFactory(okHttpClient)
+            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 }
 
+// TODO: 28/08/20 Decide how to use them
 internal inline fun Retrofit.Builder.callFactory(crossinline body: (Request) -> Call) =
     callFactory(object : Call.Factory {
         override fun newCall(request: Request): Call = body(request)

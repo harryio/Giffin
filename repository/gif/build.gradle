@@ -39,6 +39,8 @@ dependencies {
     implementation project(':repository:commonrepository')
     implementation project(':common')
 
+    implementation diLibraries.koin
+
     kapt compilers.moshi
 
     testImplementation testLibraries

@@ -1,6 +1,7 @@
 package io.github.sainiharry.giffin
 
 import android.app.Application
+import io.github.sainiharry.giffin.gif.gifRepositoryModule
 import io.github.sainiharry.giffin.network.API_KEY_QUALIFIER
 import io.github.sainiharry.giffin.network.networkModule
 import org.koin.android.ext.koin.androidContext
@@ -16,13 +17,13 @@ class GiffinApp : Application() {
         startKoin {
             androidContext(this@GiffinApp)
 
-            module {
+            val apiKeyModule = module {
                 single(named(API_KEY_QUALIFIER)) {
                     BuildConfig.GIPHY_API_KEY
                 }
             }
 
-            modules(networkModule)
+            modules(apiKeyModule, networkModule, gifRepositoryModule)
         }
     }
 }

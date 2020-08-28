@@ -4,6 +4,18 @@ import io.github.sainiharry.giffin.common.Gif
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.koin.dsl.module
+import retrofit2.Retrofit
+
+val gifRepositoryModule = module {
+    single<GifService> {
+        get<Retrofit>().create(GifService::class.java)
+    }
+
+    single<GifRepository> {
+        GifRepositoryImpl(get())
+    }
+}
 
 interface GifRepository {
 

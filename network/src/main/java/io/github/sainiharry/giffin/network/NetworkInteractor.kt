@@ -12,7 +12,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 const val API_KEY_QUALIFIER = "api_key"
 
-private const val BASE_API_URL = "https://api.themoviedb.org"
+private const val BASE_API_URL = "https://api.giphy.com"
 
 val networkModule = module {
     single {

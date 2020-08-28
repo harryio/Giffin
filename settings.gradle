@@ -1,3 +1,4 @@
+include ':feature:trendinggifs'
 include ':common'
 include ':repository:commonrepository'
 include ':repository:gif'

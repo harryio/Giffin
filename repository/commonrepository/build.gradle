@@ -38,11 +38,12 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     api libraries.kotlinStdLib
-    api libraries.paging
     api coroutines.core
 
     api networkLibraries.retrofit
     api networkLibraries.moshi
+
+    kapt compilers.moshi
 
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries

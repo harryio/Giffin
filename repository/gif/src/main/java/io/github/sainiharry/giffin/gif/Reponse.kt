@@ -18,7 +18,7 @@ internal data class GifResponse(
 )
 
 @JsonClass(generateAdapter = true)
-internal data class ImagesWrapper(@Json(name = "preview_gif") val gif: GifImage?)
+internal data class ImagesWrapper(@Json(name = "fixed_height") val gif: GifImage?)
 
 @JsonClass(generateAdapter = true)
 internal data class GifImage(val url: String?, val height: Int = 0, val width: Int = 0)

@@ -4,6 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import io.github.sainiharry.giffin.common.Gif
 import io.github.sainiharry.giffin.commonrepository.PaginationResponse
+import io.github.sainiharry.giffin.gif.database.GifEntity
 
 @JsonClass(generateAdapter = true)
 internal data class GifResponseWrapper(
@@ -29,13 +30,13 @@ internal fun String?.isValid(): Boolean {
 
 internal fun ImagesWrapper?.isValid(): Boolean = this?.gif?.url.isValid()
 
-internal fun GifResponse?.toGif(): Gif? {
+internal fun GifResponse?.toGifEntity(): GifEntity? {
     if (this == null) {
         return null
     }
 
     return if (id.isValid() && images.isValid()) {
-        Gif(id!!, images!!.gif!!.url!!, images.gif!!.height, images.gif.width)
+        GifEntity(id!!, images!!.gif!!.url!!, images.gif!!.height, images.gif.width)
     } else {
         null
     }

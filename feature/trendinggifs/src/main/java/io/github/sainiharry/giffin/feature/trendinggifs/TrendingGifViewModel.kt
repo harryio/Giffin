@@ -9,5 +9,5 @@ internal class TrendingGifViewModel(
     gifRepository: GifRepository
 ) : ViewModel() {
 
-    val gifListFlow = gifRepository.getTrendingGifsPager().flow.cachedIn(viewModelScope)
+    val gifListFlow = gifRepository.getTrendingGifsPager().cachedIn(viewModelScope)
 }

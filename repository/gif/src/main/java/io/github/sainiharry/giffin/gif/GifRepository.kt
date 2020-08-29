@@ -2,38 +2,29 @@ package io.github.sainiharry.giffin.gif
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.room.Room
+import androidx.paging.PagingData
 import io.github.sainiharry.giffin.common.Gif
-import io.github.sainiharry.giffin.commonrepository.DATABASE_NAME
-import io.github.sainiharry.giffin.gif.database.GifDatabase
+import io.github.sainiharry.giffin.gif.database.GifDao
 import io.github.sainiharry.giffin.gif.network.GifService
-import org.koin.dsl.module
-import retrofit2.Retrofit
-
-val gifRepositoryModule = module {
-    single<GifService> {
-        get<Retrofit>().create(GifService::class.java)
-    }
-
-    single<GifRepository> {
-        GifRepositoryImpl(get())
-    }
-
-    single {
-        Room.databaseBuilder(get(), GifDatabase::class.java, DATABASE_NAME).build()
-    }
-}
+import kotlinx.coroutines.flow.Flow
 
 interface GifRepository {
 
-    fun getTrendingGifsPager(): Pager<Int, Gif>
+    fun getTrendingGifsPager(): Flow<PagingData<Gif>>
 }
 
-internal class GifRepositoryImpl(private val gifService: GifService) : GifRepository {
+internal class GifRepositoryImpl(
+    private val gifService: GifService,
+    private val gifDao: GifDao,
+    private val keyStore: GifPagingKeyStore
+) : GifRepository {
 
-    override fun getTrendingGifsPager(): Pager<Int, Gif> {
-        return Pager(PagingConfig(pageSize = 20, enablePlaceholders = false)) {
-            TrendingGifsDataSource(gifService)
-        }
-    }
+
+    override fun getTrendingGifsPager(): Flow<PagingData<Gif>> =
+        Pager(
+            config = PagingConfig(pageSize = 20, enablePlaceholders = false),
+            remoteMediator = TrendingGifsRemoteMediator(gifService, gifDao, keyStore)
+        ) {
+            gifDao.pagingSource()
+        }.flow
 }

@@ -45,6 +45,7 @@ dependencies {
     api room
 
     kapt compilers.moshi
+    kapt compilers.room
 
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries

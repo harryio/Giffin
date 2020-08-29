@@ -2,6 +2,8 @@ package io.github.sainiharry.giffin.gif
 
 import androidx.paging.PagingSource
 import io.github.sainiharry.giffin.common.Gif
+import io.github.sainiharry.giffin.gif.network.GifService
+import io.github.sainiharry.giffin.gif.network.toGif
 
 internal class TrendingGifsDataSource(private val gifService: GifService) :
     PagingSource<Int, Gif>() {

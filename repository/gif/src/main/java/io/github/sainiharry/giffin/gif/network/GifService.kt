@@ -1,4 +1,4 @@
-package io.github.sainiharry.giffin.gif
+package io.github.sainiharry.giffin.gif.network
 
 import retrofit2.http.GET
 import retrofit2.http.Query

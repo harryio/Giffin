@@ -1,4 +1,4 @@
-package io.github.sainiharry.giffin.gif
+package io.github.sainiharry.giffin.gif.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

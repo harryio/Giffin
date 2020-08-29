@@ -7,6 +7,7 @@ ext {
     def constraintLayoutVersion = "2.0.0-beta4"
     def navVersion = "2.3.0-alpha04"
     def recyclerViewVersion = "1.1.0"
+    def swipeRefreshLayout = "1.1.0"
 
     def retrofitVersion  = '2.8.1'
     def moshiVersion = '1.9.2'
@@ -41,6 +42,7 @@ ext {
             "com.google.android.material:material:$materialVersion",
             "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
             "androidx.recyclerview:recyclerview:$recyclerViewVersion",
+            "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayout",
     ]
 
     navigation = [

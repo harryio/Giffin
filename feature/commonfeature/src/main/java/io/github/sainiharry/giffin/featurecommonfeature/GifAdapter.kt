@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import io.github.sainiharry.giffin.common.Gif
 import io.github.sainiharry.giffin.featurecommonfeature.databinding.ItemGifBinding
 
-private val listDiffer = object : DiffUtil.ItemCallback<Gif>() {
+val gifListDiffer = object : DiffUtil.ItemCallback<Gif>() {
 
     private val PAYLOAD_FAVORITE = Any()
 
@@ -31,7 +31,7 @@ private val listDiffer = object : DiffUtil.ItemCallback<Gif>() {
 }
 
 class GifAdapter(private val itemClickListener: ItemClickListener<Gif>) :
-    PagingDataAdapter<Gif, GifViewHolder>(listDiffer) {
+    PagingDataAdapter<Gif, GifViewHolder>(gifListDiffer) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder =
         GifViewHolder(parent, itemClickListener)
@@ -70,7 +70,7 @@ class GifViewHolder(parent: ViewGroup, private val itemClickListener: ItemClickL
         }
     }
 
-    internal fun bind(gif: Gif?) {
+    fun bind(gif: Gif?) {
         this.gif = gif
         if (gif == null) {
             Glide.with(binding.root).clear(binding.gifImage)
@@ -83,7 +83,7 @@ class GifViewHolder(parent: ViewGroup, private val itemClickListener: ItemClickL
         binding.executePendingBindings()
     }
 
-    internal fun updateFavorite(gif: Gif?) {
+    fun updateFavorite(gif: Gif?) {
         this.gif = gif
         gif?.let {
             val resource = if (it.favorite) {

@@ -1,9 +1,8 @@
 package io.github.sainiharry.giffin.gif
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import io.github.sainiharry.giffin.common.Gif
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
@@ -19,19 +18,14 @@ val gifRepositoryModule = module {
 
 interface GifRepository {
 
-    suspend fun fetchTrendingGifs(): List<Gif>
+    fun getTrendingGifsPager(): Pager<Int, Gif>
 }
 
-internal class GifRepositoryImpl(
-    private val gifService: GifService,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : GifRepository {
+internal class GifRepositoryImpl(private val gifService: GifService) : GifRepository {
 
-    override suspend fun fetchTrendingGifs(): List<Gif> = withContext(coroutineDispatcher) {
-        val trendingGifsResponse = gifService.fetchTrendingGifs()
-        val gifResponses = trendingGifsResponse?.data ?: emptyList()
-        gifResponses.mapNotNull {
-            it.toGif()
+    override fun getTrendingGifsPager(): Pager<Int, Gif> {
+        return Pager(PagingConfig(pageSize = 20, enablePlaceholders = false)) {
+            TrendingGifsDataSource(gifService)
         }
     }
 }

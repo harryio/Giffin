@@ -8,10 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import io.github.sainiharry.giffin.feature.trendinggifs.databinding.FragmentTrendingGifsBinding
 import io.github.sainiharry.giffin.featurecommonfeature.GifAdapter
-import kotlinx.coroutines.Dispatchers
+import io.github.sainiharry.giffin.featurecommonfeature.LoadingAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 
 class TrendingGifsFragment : Fragment() {
@@ -20,14 +25,16 @@ class TrendingGifsFragment : Fragment() {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return TrendingGifViewModel(get(), Dispatchers.Main.immediate) as T
+                return TrendingGifViewModel(get()) as T
             }
         }
     }
 
     private lateinit var binding: FragmentTrendingGifsBinding
 
-    private lateinit var adapter: GifAdapter
+    private lateinit var pagingAdapter: GifAdapter
+
+    private lateinit var adapter: ConcatAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +49,16 @@ class TrendingGifsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (!this::adapter.isInitialized) {
-            adapter = GifAdapter()
+            pagingAdapter = GifAdapter()
+            adapter = pagingAdapter.withLoadStateFooter(LoadingAdapter {
+                context?.let {
+                    Snackbar.make(
+                        binding.root,
+                        "Error while fetching gif page from network",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            })
         }
 
         val spanCount = 2
@@ -50,8 +66,10 @@ class TrendingGifsFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
 
-        viewModel.gifList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        lifecycleScope.launch {
+            viewModel.gifListFlow.collectLatest { pagingData ->
+                pagingAdapter.submitData(pagingData)
+            }
         }
     }
 }

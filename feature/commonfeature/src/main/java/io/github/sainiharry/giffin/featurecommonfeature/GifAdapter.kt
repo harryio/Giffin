@@ -2,8 +2,8 @@ package io.github.sainiharry.giffin.featurecommonfeature
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.github.sainiharry.giffin.common.Gif
@@ -19,7 +19,7 @@ private val listDiffer = object : DiffUtil.ItemCallback<Gif>() {
     }
 }
 
-class GifAdapter : ListAdapter<Gif, GifViewHolder>(listDiffer) {
+class GifAdapter : PagingDataAdapter<Gif, GifViewHolder>(listDiffer) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder =
         GifViewHolder(parent)
@@ -29,18 +29,20 @@ class GifAdapter : ListAdapter<Gif, GifViewHolder>(listDiffer) {
     }
 }
 
-class GifViewHolder(
-    parent: ViewGroup, private val binding: ItemGifBinding = ItemGifBinding.inflate(
-        LayoutInflater.from(parent.context),
-        parent,
-        false
-    )
-) : RecyclerView.ViewHolder(binding.root) {
+class GifViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.item_gif, parent, false)
+) {
 
-    internal fun bind(gif: Gif) {
-        Glide.with(binding.root)
-            .load(gif.url)
-            .into(binding.gifImage)
+    private val binding = ItemGifBinding.bind(itemView)
+
+    internal fun bind(gif: Gif?) {
+        if (gif == null) {
+            Glide.with(binding.root).clear(binding.gifImage)
+        } else {
+            Glide.with(binding.root)
+                .load(gif.url)
+                .into(binding.gifImage)
+        }
         binding.executePendingBindings()
     }
 }

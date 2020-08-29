@@ -45,6 +45,7 @@ dependencies {
     implementation libraries.glide
 
     api libraries.kotlinStdLib
+    api libraries.paging
     api androidLibraries
     api coroutines.android
     api diLibraries.koinAndroid

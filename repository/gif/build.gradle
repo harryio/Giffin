@@ -41,6 +41,8 @@ dependencies {
 
     implementation diLibraries.koin
 
+    api libraries.paging
+
     kapt compilers.moshi
 
     testImplementation testLibraries

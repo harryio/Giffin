@@ -7,7 +7,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container"
-        android:name="io.github.sainiharry.giffin.feature.trendinggifs.TrendingGifsFragment"
+        android:name="io.github.sainiharry.griffin.feature.home.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -10,7 +10,7 @@ import io.github.sainiharry.griffin.feature.home.databinding.FragmentHomeBinding
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
-class HomePagerFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -45,6 +45,6 @@ class HomePagerFragment : Fragment() {
                     tab.setIcon(R.drawable.ic_favorite)
                 }
             }
-        }
+        }.attach()
     }
 }

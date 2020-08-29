@@ -44,7 +44,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':network')
     implementation project(':repository:gif')
-    implementation project(':feature:trendinggifs')
+    implementation project(':feature:home')
 
     implementation libraries.kotlinStdLib
 

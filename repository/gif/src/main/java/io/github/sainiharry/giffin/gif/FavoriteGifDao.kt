@@ -7,13 +7,13 @@ import kotlinx.coroutines.flow.Flow
 private const val TABLE_NAME = "FavoriteGifs"
 
 @Entity(tableName = TABLE_NAME)
-data class FavoriteGifEntity(@PrimaryKey val id: String = "", val favorite: Boolean = true)
+internal data class FavoriteGifEntity(@PrimaryKey val id: String = "", val favorite: Boolean = true)
 
 @Dao
-interface FavoriteGifsDao {
+internal interface FavoriteGifsDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(favoriteGifEntity: FavoriteGifEntity)
+    suspend fun insert(favoriteGifEntity: FavoriteGifEntity)
 
     @Query("SELECT * FROM $TABLE_NAME INNER JOIN GifEntity ON $TABLE_NAME.id = GifEntity.id")
     fun getFavoriteGifs(): Flow<List<Gif>>

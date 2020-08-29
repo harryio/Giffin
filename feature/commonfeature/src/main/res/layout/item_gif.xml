@@ -23,6 +23,7 @@
             tools:src="@tools:sample/avatars" />
 
         <ImageButton
+            android:id="@+id/favorite_button"
             android:layout_width="@dimen/min_target_size"
             android:layout_height="@dimen/min_target_size"
             android:layout_gravity="end"

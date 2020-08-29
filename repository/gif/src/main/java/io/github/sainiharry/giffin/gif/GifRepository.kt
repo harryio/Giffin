@@ -8,19 +8,27 @@ import io.github.sainiharry.giffin.gif.database.GifDatabase
 import io.github.sainiharry.giffin.gif.network.GifService
 import io.github.sainiharry.giffin.gif.paging.GifPagingKeyStore
 import io.github.sainiharry.giffin.gif.paging.TrendingGifsRemoteMediator
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 interface GifRepository {
 
     fun getTrendingGifsPager(): Flow<PagingData<Gif>>
 
     fun getFavoriteGifs(): Flow<List<Gif>>
+
+    suspend fun favoriteGif(gif: Gif)
+
+    suspend fun unFavoriteGif(gif: Gif)
 }
 
 internal class GifRepositoryImpl(
     private val gifService: GifService,
     gifDatabase: GifDatabase,
-    private val keyStore: GifPagingKeyStore
+    private val keyStore: GifPagingKeyStore,
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : GifRepository {
 
     private val gifDao = gifDatabase.gifDao()
@@ -36,4 +44,12 @@ internal class GifRepositoryImpl(
         }.flow
 
     override fun getFavoriteGifs(): Flow<List<Gif>> = favoriteGifsDao.getFavoriteGifs()
+
+    override suspend fun favoriteGif(gif: Gif) = withContext(coroutineDispatcher) {
+        favoriteGifsDao.insert(FavoriteGifEntity(gif.id))
+    }
+
+    override suspend fun unFavoriteGif(gif: Gif) = withContext(coroutineDispatcher) {
+        favoriteGifsDao.remove(FavoriteGifEntity(gif.id))
+    }
 }

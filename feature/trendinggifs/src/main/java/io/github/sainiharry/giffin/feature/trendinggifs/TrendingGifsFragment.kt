@@ -53,7 +53,7 @@ class TrendingGifsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (!this::adapter.isInitialized) {
-            pagingAdapter = GifAdapter()
+            pagingAdapter = GifAdapter(viewModel)
             adapter = pagingAdapter.withLoadStateFooter(LoadingAdapter {
                 context?.let {
                     Snackbar.make(

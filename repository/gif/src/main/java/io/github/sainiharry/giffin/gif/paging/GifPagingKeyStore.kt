@@ -1,4 +1,4 @@
-package io.github.sainiharry.giffin.gif
+package io.github.sainiharry.giffin.gif.paging
 
 import android.content.SharedPreferences
 import io.github.sainiharry.giffin.commonrepository.PACKAGE_NAME

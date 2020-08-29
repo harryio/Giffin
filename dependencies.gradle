@@ -60,7 +60,7 @@ ext {
 
     room = [
             "androidx.room:room-runtime:$roomVersion",
-            "androidx.room:room-ktx:$roomVersion"
+            "androidx.room:room-ktx:$roomVersion",
     ]
 
     coroutines = [

@@ -1,4 +1,4 @@
-package io.github.sainiharry.giffin.gif
+package io.github.sainiharry.giffin.gif.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType

@@ -15,7 +15,7 @@ interface FavoriteGifsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(favoriteGifEntity: FavoriteGifEntity)
 
-    @Query("SELECT * FROM $TABLE_NAME")
+    @Query("SELECT * FROM $TABLE_NAME INNER JOIN GifEntity ON $TABLE_NAME.id = GifEntity.id")
     fun getFavoriteGifs(): Flow<List<Gif>>
 
     @Delete

@@ -14,7 +14,7 @@ internal interface GifDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertAll(gifList: List<GifEntity>)
 
-    @Query("SELECT * FROM GifEntity")
+    @Query("SELECT * FROM GifEntity LEFT JOIN FavoriteGifs ON GifEntity.id = FavoriteGifs.id")
     fun pagingSource(): PagingSource<Int, Gif>
 
     @Query("DELETE FROM GifEntity")

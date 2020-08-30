@@ -8,12 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import io.github.sainiharry.giffin.feature.search.databinding.FragmentSearchBinding
+import io.github.sainiharry.giffin.featurecommonfeature.GifAdapter
+import io.github.sainiharry.giffin.featurecommonfeature.LoadingAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
+
+    private lateinit var pagingAdapter: GifAdapter
+
+    private lateinit var adapter: ConcatAdapter
 
     private val viewModel by viewModels<SearchViewModel> {
         object : ViewModelProvider.Factory {
@@ -30,6 +42,36 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.model = viewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (!this::adapter.isInitialized) {
+            pagingAdapter = GifAdapter(viewModel)
+            adapter = pagingAdapter.withLoadStateFooter(LoadingAdapter {
+                context?.let {
+                    Snackbar.make(
+                        binding.root,
+                        "Error while fetching gif page from network",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            })
+        }
+
+        val spanCount = 2
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), spanCount)
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.adapter = adapter
+
+        lifecycleScope.launch {
+            viewModel.searchResults.collectLatest {
+                pagingAdapter.submitData(it)
+            }
+        }
     }
 }

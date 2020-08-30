@@ -27,6 +27,8 @@ interface GifRepository {
     suspend fun favoriteGif(gif: Gif)
 
     suspend fun unFavoriteGif(gif: Gif)
+
+    suspend fun clearSearchResults()
 }
 
 internal class GifRepositoryImpl(
@@ -66,5 +68,9 @@ internal class GifRepositoryImpl(
 
     override suspend fun unFavoriteGif(gif: Gif) = withContext(coroutineDispatcher) {
         favoriteGifsDao.remove(gif.id)
+    }
+
+    override suspend fun clearSearchResults() {
+        searchDao.clearAll()
     }
 }

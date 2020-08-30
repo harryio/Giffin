@@ -14,6 +14,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
 
 internal class SearchViewModel(private val gifRepository: GifRepository) : ViewModel(),
     ItemClickListener<Gif> {
@@ -24,6 +25,9 @@ internal class SearchViewModel(private val gifRepository: GifRepository) : ViewM
     @ExperimentalCoroutinesApi
     val searchResults: Flow<PagingData<Gif>> = searchQuery.asFlow()
         .debounce(500)
+        .onEach {
+            gifRepository.clearSearchResults()
+        }
         .flatMapLatest {
             gifRepository.searchGifs(it)
         }.cachedIn(viewModelScope)

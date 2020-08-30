@@ -30,7 +30,11 @@
                 android:inputType="text"
                 android:text="@={model.searchQuery}"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white">
+
+                <requestFocus />
+            </EditText>
+
 
         </androidx.appcompat.widget.Toolbar>
 

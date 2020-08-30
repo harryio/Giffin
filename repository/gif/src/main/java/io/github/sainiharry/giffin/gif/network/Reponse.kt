@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 import io.github.sainiharry.giffin.common.Gif
 import io.github.sainiharry.giffin.commonrepository.PaginationResponse
 import io.github.sainiharry.giffin.gif.database.GifEntity
+import io.github.sainiharry.giffin.gif.database.SearchedGifEntity
 
 @JsonClass(generateAdapter = true)
 internal data class GifResponseWrapper(
@@ -39,5 +40,14 @@ internal fun GifResponse?.toGifEntity(): GifEntity? {
         GifEntity(id!!, images!!.gif!!.url!!, images.gif!!.height, images.gif.width)
     } else {
         null
+    }
+}
+
+internal fun GifResponse?.toSearchedGif() : SearchedGifEntity? {
+    val gifEntity = toGifEntity()
+    return if (gifEntity == null) {
+        null
+    } else {
+        SearchedGifEntity(gifEntity)
     }
 }

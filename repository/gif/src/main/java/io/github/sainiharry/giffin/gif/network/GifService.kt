@@ -10,4 +10,10 @@ internal interface GifService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
     ): GifResponseWrapper?
+
+    suspend fun searchGifs(
+        @Query("q") query: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit:Int
+    ): GifResponseWrapper?
 }

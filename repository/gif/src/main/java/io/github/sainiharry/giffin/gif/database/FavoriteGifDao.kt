@@ -1,8 +1,7 @@
-package io.github.sainiharry.giffin.gif
+package io.github.sainiharry.giffin.gif.database
 
 import androidx.room.*
 import io.github.sainiharry.giffin.common.Gif
-import io.github.sainiharry.giffin.gif.database.GifEntity
 import kotlinx.coroutines.flow.Flow
 
 private const val TABLE_NAME = "FavoriteGifs"

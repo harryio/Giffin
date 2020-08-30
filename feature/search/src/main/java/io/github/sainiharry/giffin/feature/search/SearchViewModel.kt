@@ -3,7 +3,9 @@ package io.github.sainiharry.giffin.feature.search
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import io.github.sainiharry.giffin.common.Gif
 import io.github.sainiharry.giffin.featurecommonfeature.ItemClickListener
 import io.github.sainiharry.giffin.gif.GifRepository
@@ -24,7 +26,7 @@ internal class SearchViewModel(private val gifRepository: GifRepository) : ViewM
         .debounce(500)
         .flatMapLatest {
             gifRepository.searchGifs(it)
-        }
+        }.cachedIn(viewModelScope)
 
     override fun onItemClick(item: Gif) {
         TODO("Not yet implemented")

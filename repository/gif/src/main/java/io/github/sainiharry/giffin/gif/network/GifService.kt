@@ -11,6 +11,7 @@ internal interface GifService {
         @Query("limit") limit: Int
     ): GifResponseWrapper?
 
+    @GET("/v1/gifs/search")
     suspend fun searchGifs(
         @Query("q") query: String,
         @Query("offset") offset: Int,

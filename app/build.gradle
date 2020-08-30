@@ -45,10 +45,12 @@ dependencies {
     implementation project(':network')
     implementation project(':repository:gif')
     implementation project(':feature:home')
+    implementation project(':feature:search')
 
     implementation libraries.kotlinStdLib
 
     implementation androidLibraries
+    implementation navigation
 
     implementation diLibraries.koinAndroid
 

@@ -6,7 +6,7 @@ import io.github.sainiharry.giffin.common.Gif
 
 private const val TABLE_NAME = "SearchedGifs"
 
-@Entity(tableName = TABLE_NAME)
+@Entity(tableName = TABLE_NAME, primaryKeys = ["id"])
 internal class SearchedGifEntity(@Embedded val gifEntity: GifEntity)
 
 @Dao

@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import io.github.sainiharry.giffin.common.Gif
 import io.github.sainiharry.giffin.gif.database.GifDatabase
+import io.github.sainiharry.giffin.gif.database.toGifEntity
 import io.github.sainiharry.giffin.gif.network.GifService
 import io.github.sainiharry.giffin.gif.paging.GifPagingKeyStore
 import io.github.sainiharry.giffin.gif.paging.TrendingGifsRemoteMediator
@@ -46,10 +47,10 @@ internal class GifRepositoryImpl(
     override fun getFavoriteGifs(): Flow<List<Gif>> = favoriteGifsDao.getFavoriteGifs()
 
     override suspend fun favoriteGif(gif: Gif) = withContext(coroutineDispatcher) {
-        favoriteGifsDao.insert(FavoriteGifEntity(gif.id))
+        favoriteGifsDao.insert(FavoriteGifEntity(gif.toGifEntity()))
     }
 
     override suspend fun unFavoriteGif(gif: Gif) = withContext(coroutineDispatcher) {
-        favoriteGifsDao.remove(FavoriteGifEntity(gif.id))
+        favoriteGifsDao.remove(gif.id)
     }
 }

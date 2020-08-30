@@ -12,4 +12,4 @@ internal data class GifEntity(
     val height: Int
 )
 
-internal fun GifEntity.toGif(): Gif = Gif(id, url, width, height)
+internal fun Gif.toGifEntity() = GifEntity(id, url, width, height)

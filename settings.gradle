@@ -1,3 +1,4 @@
+include ':feature:search'
 include ':feature:home'
 include ':feature:favoritegifs'
 include ':feature:commonfeature'

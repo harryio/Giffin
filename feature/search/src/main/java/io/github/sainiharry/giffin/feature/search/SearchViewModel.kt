@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 internal class SearchViewModel(private val gifRepository: GifRepository) : ViewModel(),
     ItemClickListener<Gif> {
@@ -33,6 +34,12 @@ internal class SearchViewModel(private val gifRepository: GifRepository) : ViewM
         }.cachedIn(viewModelScope)
 
     override fun onItemClick(item: Gif) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            if (item.favorite) {
+                gifRepository.unFavoriteGif(item)
+            } else {
+                gifRepository.favoriteGif(item)
+            }
+        }
     }
 }

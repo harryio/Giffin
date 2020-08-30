@@ -16,6 +16,8 @@ import com.google.android.material.snackbar.Snackbar
 import io.github.sainiharry.giffin.feature.search.databinding.FragmentSearchBinding
 import io.github.sainiharry.giffin.featurecommonfeature.GifAdapter
 import io.github.sainiharry.giffin.featurecommonfeature.LoadingAdapter
+import io.github.sainiharry.giffin.featurecommonfeature.focusAndShowKeyboard
+import io.github.sainiharry.giffin.featurecommonfeature.hideKeyboard
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
@@ -78,5 +80,12 @@ class SearchFragment : Fragment() {
                 pagingAdapter.submitData(it)
             }
         }
+
+        binding.searchField.focusAndShowKeyboard()
+    }
+
+    override fun onDestroyView() {
+        requireActivity().hideKeyboard()
+        super.onDestroyView()
     }
 }

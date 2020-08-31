@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import io.github.sainiharry.giffin.feature.trendinggifs.databinding.FragmentTrendingGifsBinding
 import io.github.sainiharry.giffin.featurecommonfeature.GifAdapter
 import io.github.sainiharry.giffin.featurecommonfeature.LoadingAdapter
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
@@ -34,6 +36,8 @@ class TrendingGifsFragment : Fragment() {
         }
     }
 
+    private val searchViewModel by activityViewModels<SearchViewModel>()
+
     private lateinit var binding: FragmentTrendingGifsBinding
 
     private lateinit var pagingAdapter: GifAdapter
@@ -49,6 +53,7 @@ class TrendingGifsFragment : Fragment() {
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -75,7 +80,7 @@ class TrendingGifsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.gifListFlow.collectLatest { pagingData ->
+            viewModel.gifList.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
         }
@@ -84,6 +89,10 @@ class TrendingGifsFragment : Fragment() {
             pagingAdapter.loadStateFlow.debounce(100).collectLatest { loadStates ->
                 binding.refreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
             }
+        }
+
+        searchViewModel.searchQuery.observe(viewLifecycleOwner) {
+            viewModel.handleSearchQuery(it)
         }
     }
 }

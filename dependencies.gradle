@@ -10,10 +10,12 @@ ext {
     def swipeRefreshLayoutVersion = "1.1.0"
     def viewPagerVersion = "1.0.0"
 
-    def retrofitVersion  = '2.8.1'
+    def retrofitVersion = '2.8.1'
     def moshiVersion = '1.9.2'
     def loggingLibVersion = "4.5.0"
 
+    def mockitoVersion = "2.23.0"
+    def coreTestingVersion = "2.1.0"
     def jUnitVersion = "4.12"
     def androidJUnitVersion = "1.1.1"
     def espressoVersion = "3.2.0"
@@ -28,12 +30,10 @@ ext {
 
     def pagingVersion = "3.0.0-alpha05"
 
-    def rxBindingVersion = "4.0.0"
-
     libraries = [
-            kotlinStdLib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
-            glide                 : "com.github.bumptech.glide:glide:$glideVersion",
-            paging                : "androidx.paging:paging-runtime:$pagingVersion",
+            kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            glide       : "com.github.bumptech.glide:glide:$glideVersion",
+            paging      : "androidx.paging:paging-runtime:$pagingVersion",
     ]
 
     androidLibraries = [
@@ -68,22 +68,25 @@ ext {
     ]
 
     coroutines = [
-            core                  :"org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
-            android               :"org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion",
+            core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
+            android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion",
     ]
 
     compilers = [
-            moshi                 : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
-            room                  : "androidx.room:room-compiler:$roomVersion",
+            moshi: "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
+            room : "androidx.room:room-compiler:$roomVersion",
     ]
 
     diLibraries = [
-            koin                  : "org.koin:koin-core:$koinVersion",
-            koinAndroid           : "org.koin:koin-android:$koinVersion",
+            koin       : "org.koin:koin-core:$koinVersion",
+            koinAndroid: "org.koin:koin-android:$koinVersion",
     ]
 
     testLibraries = [
             "junit:junit:$jUnitVersion",
+            "androidx.arch.core:core-testing:$coreTestingVersion",
+            "org.mockito:mockito-core:$mockitoVersion",
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     ]
 
     androidTestLibraries = [

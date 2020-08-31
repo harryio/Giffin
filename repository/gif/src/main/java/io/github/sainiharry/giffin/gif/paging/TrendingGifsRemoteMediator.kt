@@ -43,7 +43,7 @@ internal class TrendingGifsRemoteMediator(
             return trendingGifsResponse?.pagination?.let {
                 gifDao.insert(gifList, refresh = loadType == LoadType.REFRESH)
                 pagingKeyStore.setKey(it.count + it.offset)
-                MediatorResult.Success(endOfPaginationReached = gifList.isEmpty())
+                MediatorResult.Success(endOfPaginationReached = gifResponses.isEmpty())
             } ?: MediatorResult.Success(endOfPaginationReached = true)
         } catch (e: Exception) {
             e.printStackTrace()

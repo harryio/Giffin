@@ -43,9 +43,6 @@ dependencies {
     implementation project(':feature:commonfeature')
     implementation project(':feature:favoritegifs')
     implementation project(':feature:trendinggifs')
-    implementation project(':feature:search')
-
-    implementation navigation
 
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries

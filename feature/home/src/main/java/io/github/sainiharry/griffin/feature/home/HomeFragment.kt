@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import io.github.sainiharry.giffin.feature.trendinggifs.SearchViewModel
@@ -34,7 +33,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navController = findNavController()
 
         binding.pager.adapter = HomePagerAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
@@ -50,10 +48,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }.attach()
-
-        binding.searchButton.setOnClickListener {
-            navController.navigate(R.id.action_home_to_search)
-        }
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {

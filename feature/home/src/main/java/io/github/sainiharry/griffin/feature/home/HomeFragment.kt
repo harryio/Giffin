@@ -56,8 +56,6 @@ class HomeFragment : Fragment() {
                 } else {
                     View.VISIBLE
                 }
-
-                activity?.hideKeyboard()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {

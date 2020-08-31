@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import io.github.sainiharry.giffin.feature.favoritegifs.databinding.FragmentFavoriteGifsBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
@@ -21,7 +22,7 @@ class FavoriteGifsFragment : Fragment() {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return FavoriteGifsViewModel(get()) as T
+                return FavoriteGifsViewModel(get(), Dispatchers.Main.immediate) as T
             }
         }
     }

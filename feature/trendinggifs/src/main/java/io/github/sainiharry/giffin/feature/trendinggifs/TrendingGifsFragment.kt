@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import io.github.sainiharry.giffin.feature.trendinggifs.databinding.FragmentTrendingGifsBinding
 import io.github.sainiharry.giffin.featurecommonfeature.GifAdapter
 import io.github.sainiharry.giffin.featurecommonfeature.LoadingAdapter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
@@ -31,7 +32,7 @@ class TrendingGifsFragment : Fragment() {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return TrendingGifViewModel(get()) as T
+                return TrendingGifViewModel(get(), Dispatchers.Main.immediate) as T
             }
         }
     }

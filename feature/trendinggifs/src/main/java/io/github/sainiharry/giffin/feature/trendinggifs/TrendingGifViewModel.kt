@@ -8,6 +8,7 @@ import androidx.paging.cachedIn
 import io.github.sainiharry.giffin.common.Gif
 import io.github.sainiharry.giffin.featurecommonfeature.ItemClickListener
 import io.github.sainiharry.giffin.gif.GifRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -16,7 +17,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 internal class TrendingGifViewModel(
-    private val gifRepository: GifRepository
+    private val gifRepository: GifRepository,
+    private val coroutineDispatcher: CoroutineDispatcher
 ) : ViewModel(), ItemClickListener<Gif> {
 
     private val searchQuery = MutableLiveData("")
@@ -36,11 +38,8 @@ internal class TrendingGifViewModel(
             }
         }.cachedIn(viewModelScope)
 
-    val gifListFlow = gifRepository.getTrendingGifsPager()
-        .cachedIn(viewModelScope)
-
     override fun onItemClick(item: Gif) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineDispatcher) {
             if (item.favorite) {
                 gifRepository.unFavoriteGif(item)
             } else {

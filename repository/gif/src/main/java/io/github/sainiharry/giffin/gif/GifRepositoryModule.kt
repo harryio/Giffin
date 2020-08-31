@@ -10,6 +10,9 @@ import io.github.sainiharry.giffin.gif.paging.SharedPrefPagingKeyStore
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
+/**
+ * A koin module that provides dependencies from gif repository
+ */
 val gifRepositoryModule = module {
     single<GifService> {
         get<Retrofit>().create(GifService::class.java)

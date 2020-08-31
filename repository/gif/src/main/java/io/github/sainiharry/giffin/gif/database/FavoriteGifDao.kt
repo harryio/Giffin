@@ -6,12 +6,18 @@ import kotlinx.coroutines.flow.Flow
 
 private const val TABLE_NAME = "FavoriteGifs"
 
+/**
+ * Database entity for favorite gifs
+ */
 @Entity(tableName = TABLE_NAME, primaryKeys = ["id"])
 internal data class FavoriteGifEntity(
     @Embedded() val gifEntity: GifEntity,
     val favorite: Boolean = true
 )
 
+/**
+ * DAO for Favorite Gifs
+ */
 @Dao
 internal interface FavoriteGifsDao {
 

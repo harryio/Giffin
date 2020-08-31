@@ -8,6 +8,9 @@ import androidx.room.Query
 import androidx.room.Transaction
 import io.github.sainiharry.giffin.common.Gif
 
+/**
+ * DAO for trending Gifs
+ */
 @Dao
 internal interface GifDao {
 

@@ -4,6 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.github.sainiharry.giffin.common.Gif
 
+/**
+ * Database representation of Gif information from network
+ */
 @Entity
 internal data class GifEntity(
     @PrimaryKey val id: String = "",

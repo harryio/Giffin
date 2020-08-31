@@ -11,6 +11,10 @@ import io.github.sainiharry.giffin.gif.network.toSearchedGif
 
 private const val PAGE_SIZE = 20
 
+/**
+ * [RemoteMediator] implementation that handles the responsibility of searching gif data per search
+ * query or phrase and updates the database with the results
+ */
 @OptIn(ExperimentalPagingApi::class)
 internal class SearchGifsRemoteMediator(
     private val gifService: GifService,

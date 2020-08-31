@@ -6,9 +6,15 @@ import io.github.sainiharry.giffin.common.Gif
 
 private const val TABLE_NAME = "SearchedGifs"
 
+/**
+ * Database representation of a searched gif
+ */
 @Entity(tableName = TABLE_NAME, primaryKeys = ["id"])
 internal data class SearchedGifEntity(@Embedded val gifEntity: GifEntity)
 
+/**
+ * DAO for searched Gifs
+ */
 @Dao
 internal interface SearchDao {
 

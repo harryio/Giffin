@@ -16,21 +16,51 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
+/**
+ * Repository for accessing Gif data
+ */
 interface GifRepository {
 
+    /**
+     * Get trending gifs
+     * @return a [Flow] that provides trending gifs pages
+     */
     fun getTrendingGifsPager(): Flow<PagingData<Gif>>
 
+    /**
+     * Get favorite gifs
+     * @return a [Flow] that provides latest list of favorite gifs
+     */
     fun getFavoriteGifs(): Flow<List<Gif>>
 
+    /**
+     * Search Gifs
+     * @param query the query term or phrase for which the gifs are to be fetched
+     * @return a [Flow] that provides pages of gifs per the search term
+     */
     fun searchGifs(query: String?): Flow<PagingData<Gif>>
 
+    /**
+     * Favorite a gif
+     * @param gif the gif which is to be favorited
+     */
     suspend fun favoriteGif(gif: Gif)
 
+    /**
+     * UnFavorite a gif
+     * @param gif the gif which is to be unfavorited
+     */
     suspend fun unFavoriteGif(gif: Gif)
 
+    /**
+     * Clear gifs from the last searched term
+     */
     suspend fun clearSearchResults()
 }
 
+/**
+ * Internal implementation of [GifRepository]
+ */
 internal class GifRepositoryImpl(
     private val gifService: GifService,
     gifDatabase: GifDatabase,

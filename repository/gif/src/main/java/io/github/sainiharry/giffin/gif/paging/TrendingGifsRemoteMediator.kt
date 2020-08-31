@@ -11,6 +11,10 @@ import io.github.sainiharry.giffin.gif.network.toGifEntity
 
 private const val PAGE_SIZE = 20
 
+/**
+ * [RemoteMediator] implementation that handles the responsibility of fetching trending gif data
+ * from network and updates the database with the results
+ */
 @OptIn(ExperimentalPagingApi::class)
 internal class TrendingGifsRemoteMediator(
     private val gifService: GifService,

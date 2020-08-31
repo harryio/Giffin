@@ -9,6 +9,9 @@ import io.github.sainiharry.giffin.gif.network.GifImage
 import io.github.sainiharry.giffin.gif.network.GifResponse
 import io.github.sainiharry.giffin.gif.network.GifResponseWrapper
 import io.github.sainiharry.giffin.gif.network.ImagesWrapper
+import org.mockito.Mockito
+
+fun <T> eq(obj: T): T = Mockito.eq(obj)
 
 fun getMockPagingState() = PagingState(getMockGifPageList(), 0, getMockPageConfig(), 10)
 

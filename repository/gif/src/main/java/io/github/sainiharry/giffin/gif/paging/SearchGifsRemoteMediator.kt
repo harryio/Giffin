@@ -28,7 +28,6 @@ internal class SearchGifsRemoteMediator(
                 LoadType.APPEND -> key
             }
 
-
             if (query.isNullOrEmpty() || query.trim().isBlank()) {
                 searchDao.clearAll()
                 key = 0
@@ -43,7 +42,7 @@ internal class SearchGifsRemoteMediator(
                 searchedGifResponse?.pagination?.let {
                     searchDao.insert(gifList, refresh = loadType == LoadType.REFRESH)
                     key = it.count + it.offset
-                    MediatorResult.Success(endOfPaginationReached = gifList.isEmpty())
+                    MediatorResult.Success(endOfPaginationReached = gifResponses.isEmpty())
                 } ?: MediatorResult.Success(endOfPaginationReached = true)
             }
         } catch (e: Exception) {

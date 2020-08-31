@@ -11,6 +11,8 @@ import io.github.sainiharry.giffin.gif.network.GifResponseWrapper
 import io.github.sainiharry.giffin.gif.network.ImagesWrapper
 import org.mockito.Mockito
 
+fun <T> mock(classToMock: Class<T>) = Mockito.mock(classToMock)
+
 fun <T> eq(obj: T): T = Mockito.eq(obj)
 
 fun getMockPagingState() = PagingState(getMockGifPageList(), 0, getMockPageConfig(), 10)
